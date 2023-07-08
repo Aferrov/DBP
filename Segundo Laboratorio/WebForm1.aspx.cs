@@ -94,10 +94,7 @@ namespace Segundo_Laboratorio
             string dir=TextBoxDireccion.Text;
             string ciu = ddlLista.SelectedValue;
             string req = TextAreaRequerimiento.Text;
-            string rpt="Nombre: " + nom + "\nApellido: " + ape + "\nSexo: " + sex + "\nEmail: " + ema 
-                + "\nDirección: " + dir + "\nCiudad: " + ciu + "\nRequerimiento: " + req;
-            TextBoxRpta.Text = rpt;
-            TextBoxRpta.Visible = true;
+            
             Service1Client client = new Service1Client();
             client.InsertarAlumno(nom,ape,sex,ema,dir,ciu,req);
             Limpiar();
