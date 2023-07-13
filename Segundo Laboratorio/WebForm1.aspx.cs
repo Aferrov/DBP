@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using Segundo_Laboratorio.ServiceReference1;
+using System.Reflection.Emit;
 
 namespace Segundo_Laboratorio
 {
@@ -87,17 +88,36 @@ namespace Segundo_Laboratorio
             bool sex1 = RadioButtonM.Checked;
             bool sex2=RadioButtonF.Checked;
             if (sex1)
-                sex = "M";
+                sex = "Masculino";
             else
-                sex = "F";
+                sex = "Femenino";
             string ema=TextBoxEmail.Text;
             string dir=TextBoxDireccion.Text;
             string ciu = ddlLista.SelectedValue;
             string req = TextAreaRequerimiento.Text;
+
+            createSesion(nom,ape);
+            createCookie(sex,ciu);
+            Response.Redirect("Auxiliar.aspx");
+            //Service1Client client = new Service1Client();
+            //client.InsertarAlumno(nom,ape,sex,ema,dir,ciu,req);
+            //Limpiar();
+        }
+
+        private void createSesion(String Nombre, String Apellido)
+        {
+            Session["Nombre"] = Nombre;
+            Session["Apellido"] = Apellido;
+        }
+
+        private void createCookie(String Sexo, String Ciudad)
+        {
+            HttpCookie cookie1 = new HttpCookie("sexo", Sexo);
+            HttpCookie cookie2 = new HttpCookie("ciudad", Ciudad);
+            //cookie1.Expires = new DateTime(2018, 12, 25);
+            Response.Cookies.Add(cookie1);
+            Response.Cookies.Add(cookie2);
             
-            Service1Client client = new Service1Client();
-            client.InsertarAlumno(nom,ape,sex,ema,dir,ciu,req);
-            Limpiar();
         }
     }
 }
