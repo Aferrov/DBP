@@ -110,11 +110,11 @@ namespace Segundo_Laboratorio
             Session["Apellido"] = Apellido;
         }
 
+        //creacion de las cookies
         private void createCookie(String Sexo, String Ciudad)
         {
             HttpCookie cookie1 = new HttpCookie("sexo", Sexo);
             HttpCookie cookie2 = new HttpCookie("ciudad", Ciudad);
-            //cookie1.Expires = new DateTime(2018, 12, 25);
             Response.Cookies.Add(cookie1);
             Response.Cookies.Add(cookie2);
             
