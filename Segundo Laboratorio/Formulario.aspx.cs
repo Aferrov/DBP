@@ -96,11 +96,11 @@ namespace Segundo_Laboratorio
             string dir=TextBoxDireccion.Text;
             string ciu = ddlLista.SelectedValue;
             string req = TextAreaRequerimiento.Text;
-
+            string s = sex[0].ToString();
             createSesion(nom,ape);
             createCookie(sex,ciu);
-            //Service1Client client = new Service1Client();
-            //client.InsertarAlumno(nom,ape,sex,ema,dir,ciu,req);
+            Service1Client client = new Service1Client();
+            client.InsertarAlumno(nom, ape, s,ema,dir,ciu,req);
             Response.Redirect("Auxiliar.aspx");
             Limpiar();
         }
@@ -111,7 +111,6 @@ namespace Segundo_Laboratorio
             Session["Apellido"] = Apellido;
         }
 
-        //creacion de las cookies
         private void createCookie(String Sexo, String Ciudad)
         {
             HttpCookie cookie1 = new HttpCookie("sexo", Sexo);
@@ -122,7 +121,7 @@ namespace Segundo_Laboratorio
         }
 
         [WebMethod]
-        public static bool NombreCorrecto(String nom, String ape)
+        public static bool NombreRegistrado(String nom, String ape)
         {
             Service1Client client = new Service1Client();
             return client.VerificarNombre(nom, ape); ;
