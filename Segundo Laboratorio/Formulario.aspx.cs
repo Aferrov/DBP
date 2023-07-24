@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using System.Xml.Linq;
 using Segundo_Laboratorio.ServiceReference1;
 using System.Reflection.Emit;
+using System.Web.Services;
 
 namespace Segundo_Laboratorio
 {
@@ -98,10 +99,10 @@ namespace Segundo_Laboratorio
 
             createSesion(nom,ape);
             createCookie(sex,ciu);
-            Response.Redirect("Auxiliar.aspx");
             //Service1Client client = new Service1Client();
             //client.InsertarAlumno(nom,ape,sex,ema,dir,ciu,req);
-            //Limpiar();
+            Response.Redirect("Auxiliar.aspx");
+            Limpiar();
         }
 
         private void createSesion(String Nombre, String Apellido)
@@ -118,6 +119,13 @@ namespace Segundo_Laboratorio
             Response.Cookies.Add(cookie1);
             Response.Cookies.Add(cookie2);
             
+        }
+
+        [WebMethod]
+        public static bool NombreCorrecto(String nom, String ape)
+        {
+            Service1Client client = new Service1Client();
+            return client.VerificarNombre(nom, ape); ;
         }
     }
 }

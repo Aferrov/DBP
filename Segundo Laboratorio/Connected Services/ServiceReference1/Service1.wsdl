@@ -19,6 +19,12 @@
   <wsdl:message name="IService1_InsertarAlumno_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarAlumnoResponse" />
   </wsdl:message>
+  <wsdl:message name="IService1_VerificarNombre_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarNombre" />
+  </wsdl:message>
+  <wsdl:message name="IService1_VerificarNombre_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarNombreResponse" />
+  </wsdl:message>
   <wsdl:portType name="IService1">
     <wsdl:operation name="getCiudades">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/getCiudades" message="tns:IService1_getCiudades_InputMessage" />
@@ -27,6 +33,10 @@
     <wsdl:operation name="InsertarAlumno">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/InsertarAlumno" message="tns:IService1_InsertarAlumno_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/InsertarAlumnoResponse" message="tns:IService1_InsertarAlumno_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarNombre">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/VerificarNombre" message="tns:IService1_VerificarNombre_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/VerificarNombreResponse" message="tns:IService1_VerificarNombre_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
@@ -42,6 +52,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarAlumno">
       <soap:operation soapAction="http://tempuri.org/IService1/InsertarAlumno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarNombre">
+      <soap:operation soapAction="http://tempuri.org/IService1/VerificarNombre" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

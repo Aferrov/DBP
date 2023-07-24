@@ -33,7 +33,7 @@ namespace Base_Datos
         private void query2()
         {
             BD b = new BD();
-            int c = b.SelectIdCiudad("Arequipa");
+            bool c = b.NombreRegistrado("Arleen", "Ferro Vasquez");
             Console.WriteLine(c);
             
         }

@@ -8,7 +8,9 @@
     <title>Segundo Laboratorio</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/> 
+
 <script type="text/javascript">
     function limpiar_Contenido(){
         var vacio="";
@@ -26,12 +28,22 @@
     }
 </script>
 <script type="text/javascript">
+    let respuestaServidor;
+    let respuesta;
     function mostrarAlert(texto,c1,c2) {
         var div = document.getElementById("myAlerta");
         div.classList.remove(...div.classList);
         div.classList.add(c1, c2);
         div.classList.add("fade", "show", "position-fixed", "top-0", "start-50", "translate-middle-x");
         div.innerHTML = texto + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlert(\'myAlerta\')"></button>';
+        div.style.display = "block";
+    }
+    function mostrarAlertNombres(texto, c1, c2) {
+        var div = document.getElementById("myAlerta2");
+        div.classList.remove(...div.classList);
+        div.classList.add(c1, c2);
+        div.classList.add("fade", "show", "position-fixed");
+        div.innerHTML = texto + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="closeAlert(\'myAlerta2\')"></button>';
         div.style.display = "block";
     }
     function closeAlert(alerta) {
@@ -50,44 +62,88 @@
         if (/^[a-zA-Z]+$/.test(nom) == false) {
             mostrarAlert("Error en Nombres", "alert", "alert-danger");
             document.getElementById("TextBoxNombre").value = "";
+            return false;
         }
         else if (/^[a-zA-ZñÑ\s]+$/.test(ape) == false) {
             mostrarAlert("Error en Apellidos", "alert", "alert-danger");
             document.getElementById("TextBoxApellidos").value = "";
-        }
-        else if ((sex1 == false & sex2 == false) || (sex1 == true & sex2 == true)) {
-            mostrarAlert("Error en Sexo", "alert", "alert-danger");
-            document.getElementById("RadioButtonM").checked = false;
-            document.getElementById("RadioButtonF").checked = false;
-        }
-        else if (/^[\w-]+(\.[\w-]+)*@unsa.edu.pe/.test(ema) == false) {
-            mostrarAlert("Error en Correo", "alert", "alert-danger");
-            document.getElementById("TextBoxEmail").value = "";
-        }
-        else if (ciu == "Selecciona una opcion...") {
-            mostrarAlert("Error en Ciudad", "alert", "alert-danger");
+            return false;
         }
         else {
-            var diasSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-            var meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                // Llamada AJAX con callback
+                callAjax(function (respuestaServidor) {
+                if (respuestaServidor === true) {
+                    return false;
+                }
 
-            var fechaActual = new Date();
-            var diaSemana = diasSemana[fechaActual.getDay()];
-            var dia = fechaActual.getDate();
-            var mes = meses[fechaActual.getMonth()];
-            var anio = fechaActual.getFullYear();
-            var hora = fechaActual.getHours();
-            var minutos = fechaActual.getMinutes();
-            var segundos = fechaActual.getSeconds();
-            var horacompleta = hora + ":" + minutos + ":" + segundos + " GTM 0500 (hora estandar Perú)";
+                else if ((sex1 == false & sex2 == false) || (sex1 == true & sex2 == true)) {
+                    mostrarAlert("Error en Sexo", "alert", "alert-danger");
+                    document.getElementById("RadioButtonM").checked = false;
+                    document.getElementById("RadioButtonF").checked = false;
+                    
+                }
+                else if (/^[\w-]+(\.[\w-]+)*@unsa.edu.pe/.test(ema) == false) {
+                    mostrarAlert("Error en Correo", "alert", "alert-danger");
+                    document.getElementById("TextBoxEmail").value = "";
+                    
+                }
+                else if (ciu == "Selecciona una opcion...") {
+                    mostrarAlert("Error en Ciudad", "alert", "alert-danger");
+                    
+                }
+                else {
+                        var diasSemana = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+                        var meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+                        var fechaActual = new Date();
+                        var diaSemana = diasSemana[fechaActual.getDay()];
+                        var dia = fechaActual.getDate();
+                        var mes = meses[fechaActual.getMonth()];
+                        var anio = fechaActual.getFullYear();
+                        var hora = fechaActual.getHours();
+                        var minutos = fechaActual.getMinutes();
+                        var segundos = fechaActual.getSeconds();
+                        var horacompleta = hora + ":" + minutos + ":" + segundos + " GTM 0500 (hora estandar Perú)";
 
 
-            mostrarAlert("Registrado a las: " + diaSemana + " " + dia + " " + mes + " " + anio + " " + horacompleta, "alert", "alert-info");
-            //limpiar_Contenido();
-            return true;
+                        mostrarAlert("Registrado a las: " + diaSemana + " " + dia + " " + mes + " " + anio + " " + horacompleta, "alert", "alert-info");
+                        //limpiar_Contenido();
+                        respuesta = true;
+                        return respuesta;
+
+                     }
+                });
+                respuesta = false;
+                return respuesta;
         }
-        return false;
+        respuesta = false;
+        return respuesta;
     }
+    function callAjax(callback) {
+        let send1 = $("#TextBoxNombre").val();
+        let send2 = $("#TextBoxApellidos").val();
+        $.ajax({
+            url: 'Formulario.aspx/NombreCorrecto',
+            type: 'POST',
+            async: true,
+            data: '{ "nom" : "' + send1 + '", "ape" : "' + send2 + '"}',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response.d === false) { // Compara el valor devuelto por el servidor con 'true'
+                    mostrarAlertNombres("Nombre y Apellidos Correctos", "alert", "alert-info");
+                    callback(false);
+                    
+                } else {
+                    mostrarAlertNombres("Nombre y Apellidos Incorrectos", "alert", "alert-danger");
+                    callback(true);
+                }
+                return respuesta;
+            }
+        });
+        return respuesta;
+    }
+    
 </script>
 <style>
     .btn-violet{
@@ -116,6 +172,8 @@
                 <div class="col-sm-3">
                     <asp:TextBox ID="TextBoxApellidos" runat="server" class="form-control"></asp:TextBox>
                 </div>
+           </div>
+           <div class="fade show position-fixed" role="alert" id="myAlerta2" style="display: none;">
            </div>
            <div class="row">
                 <label class="col-sm-1 col-form-label">Sexo:</label>

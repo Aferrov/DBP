@@ -26,6 +26,13 @@ namespace Servicio
 
         }
 
+        public bool VerificarNombre(string nom, string ape)
+        {
+            BD b = new BD();
+            return b.NombreRegistrado(nom,ape);
+
+        }
+
     }
 }
 

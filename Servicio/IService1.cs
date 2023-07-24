@@ -16,5 +16,8 @@ namespace Servicio
 
         [OperationContract]
         void InsertarAlumno(string nom, string ape, string sex, string ema, string dir, string ciu, string req);
+
+        [OperationContract]
+        bool VerificarNombre(string nom, string ape);
     }
 }

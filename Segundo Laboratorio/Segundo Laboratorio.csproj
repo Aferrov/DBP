@@ -77,8 +77,8 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Auxiliar.aspx" />
-    <Content Include="Web.config" />
     <Content Include="Formulario.aspx" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auxiliar.aspx.cs">
@@ -93,7 +93,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Formulario.aspx.cs">
       <DependentUpon>Formulario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -101,6 +100,7 @@
     <Compile Include="Formulario.aspx.designer.cs">
       <DependentUpon>Formulario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\Service1.wsdl" />

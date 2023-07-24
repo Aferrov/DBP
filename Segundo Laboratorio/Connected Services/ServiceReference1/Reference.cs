@@ -26,6 +26,12 @@ namespace Segundo_Laboratorio.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/InsertarAlumno", ReplyAction="http://tempuri.org/IService1/InsertarAlumnoResponse")]
         System.Threading.Tasks.Task InsertarAlumnoAsync(string nom, string ape, string sex, string ema, string dir, string ciu, string req);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VerificarNombre", ReplyAction="http://tempuri.org/IService1/VerificarNombreResponse")]
+        bool VerificarNombre(string nom, string ape);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/VerificarNombre", ReplyAction="http://tempuri.org/IService1/VerificarNombreResponse")]
+        System.Threading.Tasks.Task<bool> VerificarNombreAsync(string nom, string ape);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,6 +75,14 @@ namespace Segundo_Laboratorio.ServiceReference1 {
         
         public System.Threading.Tasks.Task InsertarAlumnoAsync(string nom, string ape, string sex, string ema, string dir, string ciu, string req) {
             return base.Channel.InsertarAlumnoAsync(nom, ape, sex, ema, dir, ciu, req);
+        }
+        
+        public bool VerificarNombre(string nom, string ape) {
+            return base.Channel.VerificarNombre(nom, ape);
+        }
+        
+        public System.Threading.Tasks.Task<bool> VerificarNombreAsync(string nom, string ape) {
+            return base.Channel.VerificarNombreAsync(nom, ape);
         }
     }
 }

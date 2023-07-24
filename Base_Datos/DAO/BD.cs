@@ -67,5 +67,28 @@ namespace Base_Datos.DAO
             con.Close();
             return int.Parse(id);
         }
+
+        public bool NombreRegistrado(string nom, string ape)
+        {
+            string id = "0";
+            connectionString = "Data Source=(localdb)\\ProjectModels;Initial Catalog=DBP;Integrated Security=True";
+            con = new SqlConnection(connectionString);
+            con.Open();
+            string query = "SELECT Code FROM DataAlumnos WHERE Nombre=@Nombre and Apellidos=@Apellidos";
+            SqlCommand command = new SqlCommand(query, con);
+            command.Parameters.AddWithValue("@Nombre", nom);
+            command.Parameters.AddWithValue("@Apellidos", ape);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                id = reader["Code"].ToString();
+            }
+            con.Close();
+            if (id == "0")
+                return false;
+            else
+                return true;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -30,6 +31,12 @@ namespace Segundo_Laboratorio
             Session.RemoveAll();
             Session.Abandon();
         }
-        
+
+        [WebMethod]
+        public static String getInformacion(String valor)
+        {
+            return "Desde el servidor se recibio :" + valor;
+        }
+
     }
 }
